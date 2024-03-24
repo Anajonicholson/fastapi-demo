@@ -12,11 +12,6 @@ app = FastAPI()
 
 
 # The zone apex is the 'default' page for a URL
-# This will return a simple hello world via GET method.
-@app.get("/add/{number1}/{number2}")  # zone apex
-def add_this_stuff_together(number1: int, number2: int):
-    sum = number1 + number2
-    return {"Sum": sum}
 
 
 # Endpoints and Methods
