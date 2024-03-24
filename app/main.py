@@ -42,14 +42,14 @@ def add_me(number_1: int, number_2: int):
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
 @app.get("/items/{item_id}")
-def read_items(item_id: int, q: str = None, s: str = None):
+def read_items(item_id: int, x: str = None, y: str = None):
     # to-do: could be used to read from/write to database, use item_id as query parameter
     # and fetch results. The q and s URL parameters are optional.
     # - database
     # - flat text
     # - another api (internal)
     # - another api (external)
-    return {"item_id": item_id, "q": q, "s": s}
+    return {"item_id": item_id, "x": x, "y": y}
 
 
 ## Data Modeling
