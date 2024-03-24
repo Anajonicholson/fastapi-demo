@@ -18,12 +18,6 @@ def add_this_stuff_together(number1: int, number2: int):
     sum = number1 + number2
     return {"Sum": sum}
 
-#New One
-@app.get("/multiply/{num1}/{num2}/{num3}")
-def multiply_this_stuff_together(num1: int, num2: int, num3: int):
-    product = int(num1) * int(num2) * int(num3)
-    return {"Product": product}
-
 
 # Endpoints and Methods
 # /blah - endpoint
