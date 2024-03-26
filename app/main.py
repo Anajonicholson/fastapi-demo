@@ -3,16 +3,30 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
-# import boto3
+import json
+import requests
+import boto3
 
 app = FastAPI()
 
 # The URL for this API has a /docs endpoint that lets you see and test
 # your various endpoints/methods.
 
-
 # The zone apex is the 'default' page for a URL
+# This will return a simple hello world via GET method.
 
+@app.get("/")  # zone apex
+def zone_apex():
+    return {"Hello": "Hello Anisha"}
+    
+    
+# api calls within an api!
+@app.get("/github/repos/{user}")
+def github_user_repos(user):
+    url = "https://api.github.com/users/" + user + "/repos"
+    response = requests.get(url)
+    body = json.loads(response.text)
+    return {"repos": body}
 
 # Endpoints and Methods
 # /blah - endpoint
@@ -25,20 +39,17 @@ def add_me(number_1: int, number_2: int):
     sum = number_1 + number_2
     return {"sum": sum}
 
-# Let's develop a new one:
-
-
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
 @app.get("/items/{item_id}")
-def read_items(item_id: int, x: str = None, y: str = None):
+def read_items(item_id: int, q: str = None, s: str = None):
     # to-do: could be used to read from/write to database, use item_id as query parameter
     # and fetch results. The q and s URL parameters are optional.
     # - database
     # - flat text
     # - another api (internal)
     # - another api (external)
-    return {"item_id": item_id, "x": x, "y": y}
+    return {"item_id": item_id, "q": q, "s": s}
 
 
 ## Data Modeling
@@ -81,9 +92,9 @@ def patch_item(item_id: int, item: Item):
 
 
 # Incorporate with boto3: simpler than the `requests` library:
-# @app.get("/aws/s3")
-# def fetch_buckets():
-#     s3 = boto3.client("s3")
-#     response = s3.list_buckets()
-#     buckets = response['Buckets']
-#     return {"buckets": buckets}
+@app.get("/aws/s3")
+def fetch_buckets():
+    s3 = boto3.client("s3")
+    response = s3.list_buckets()
+    buckets = response['Buckets']
+    return {"buckets": buckets}
