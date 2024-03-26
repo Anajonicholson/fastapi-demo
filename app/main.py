@@ -17,7 +17,7 @@ app = FastAPI()
 
 @app.get("/")  # zone apex
 def zone_apex():
-    return {"Hello": "Hello Anisha"}
+    return {"Hello": "Hello Ana Jo, lab 6 submission! :)"}
     
     
 # api calls within an api!
