@@ -28,6 +28,13 @@ DB = "fhy9gs"  # replace with your UVA computing ID / database name
 def zone_apex():
     return {"Hello": "Hello Ana Jo, lab 6 submission! :)"}
     
+@app.get("/albums")
+def get_all_albums():
+    db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
+    c = db.cursor(MySQLdb.cursors.DictCursor)
+    c.execute("""SELECT * FROM albums ORDER BY name""")
+    results = c.fetchall()    
+    return results
     
 # api calls within an api!
 @app.get("/github/repos/{user}")
