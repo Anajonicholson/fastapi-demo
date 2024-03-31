@@ -36,6 +36,15 @@ def get_all_albums():
     results = c.fetchall()    
     return results
     
+@app.get("/albums/{id}")
+def get_one_album(id):
+    db = MySQLdb.connect(host=DBHOST, user=DBUSER, passwd=DBPASS, db=DB)
+    c = db.cursor(MySQLdb.cursors.DictCursor)
+    c.execute("SELECT * FROM albums WHERE id=" + id)
+    results = c.fetchall()
+    db.close()
+    return results
+    
 # api calls within an api!
 @app.get("/github/repos/{user}")
 def github_user_repos(user):
